@@ -9,7 +9,7 @@ File(s):  IGTLab_RetoFurrer_2019<br/>
 * Inner diameter cannot be detected (!)
 * Based on canny edge detection
 
-## V2 (2019-09-03, TBD)
+## V2 (2019-09-03, 296)
 * Optimized inner diameter detection, e.g. masking
 * Output of different images for visual checks
 * Based on canny edge detection
