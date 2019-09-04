@@ -18,7 +18,7 @@ File(s):  IGTLab_RetoFurrer_2019<br/>
 * Added sobel filter
 * Read Radius of edges manually
 
-## V4 (2019-09-04, 1409834)
+## V4 (2019-09-04, 3ca9af8)
 * Removed sobel filter and replaced with canny edge detector
 * Iteration over the whole circle coordinates added
 * Code prepared for migration into function file
