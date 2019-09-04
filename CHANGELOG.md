@@ -22,4 +22,3 @@ File(s):  IGTLab_RetoFurrer_2019<br/>
 * Removed sobel filter and replaced with canny edge detector
 * Iteration over the whole circle coordinates added
 * Code prepared for migration into function file
-* 
