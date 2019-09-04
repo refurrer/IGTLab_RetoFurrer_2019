@@ -14,6 +14,12 @@ File(s):  IGTLab_RetoFurrer_2019<br/>
 * Output of different images for visual checks
 * Based on canny edge detection
 
-## V3 (2019-09.04, 1409834)
+## V3 (2019-09-04, 1409834)
 * Added sobel filter
 * Read Radius of edges manually
+
+## V4 (2019-09-04, 1409834)
+* Removed sobel filter and replaced with canny edge detector
+* Iteration over the whole circle coordinates added
+* Code prepared for migration into function file
+* 
