@@ -34,3 +34,7 @@ File(s):  IGTLab_RetoFurrer_2019<br/>
 * Added `export_results()` function to wrtie results into `.txt` file.
 * Added `create_directories()` function to create proper invironment to file new images, graphics and text files.
 * Added Description and comments to the code for further use of the program
+
+## V6 (2019-09-05, 1ece74f)
+* Completed function `find_radii()` to calculate the radii around the found edges.
+* Only `utils.py`file changed
