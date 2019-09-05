@@ -22,3 +22,14 @@ File(s):  IGTLab_RetoFurrer_2019<br/>
 * Removed sobel filter and replaced with canny edge detector
 * Iteration over the whole circle coordinates added
 * Code prepared for migration into function file
+
+## V5 (2019-09-05, 06a5801)
+* Methods moved to `utils.py` file. `IGTLab_RetoFurrer.ipynd` only work in conjunction with utils.py file from now
+* Added for loop to iterate over the whole sample images for both samples
+* Added multiple modes for the image masking `square`, `circle`and `ellipse`.
+* Added multiple function for Filtering `gauss_filter()`and `median_filter()`.
+* Funtion `inver_image()` part of `utils.py` file but unused.
+* Not completed function `find_radii()` in `utils.py` file
+* Added summary report function `print_summary()`.
+* Added `export_results()` function to wrtie results into `.txt` file.
+* Added `create_directories()` function to create proper invironment to file new images, graphics and text files.  
