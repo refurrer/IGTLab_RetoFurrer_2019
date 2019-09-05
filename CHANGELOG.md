@@ -32,4 +32,5 @@ File(s):  IGTLab_RetoFurrer_2019<br/>
 * Not completed function `find_radii()` in `utils.py` file
 * Added summary report function `print_summary()`.
 * Added `export_results()` function to wrtie results into `.txt` file.
-* Added `create_directories()` function to create proper invironment to file new images, graphics and text files.  
+* Added `create_directories()` function to create proper invironment to file new images, graphics and text files.
+* Added Description and comments to the code for further use of the program
