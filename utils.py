@@ -5,8 +5,9 @@ __Date created__:       02.09.2019
 __Date last modified__: 06.09.2019
 __Python Version__:     3.6
 __Project__:            IGT-Lab 2019 (02.09.2019-13.09.2019)
-__Description__:        This file contains the functions use in the file IGTLab_RetoFurrer_2019 to 
-                        analyse the wallthickness of polymer tubes with microCT images. 
+__Description__:        This file contains the functions used in the file IGTLab_RetoFurrer_2019 to 
+                        analyse the topology of polymer tubes with microCT images. The functions might be 
+                        called from any python IDE if needed.
 """
 
 def create_directories():
@@ -292,7 +293,7 @@ def find_diameter(image, sample="n/a", sigma=5, padding=40, show="False", index=
                     Defines the standard deviation of the edge detector (default: 5)
     
     padding:        int
-                    Defines the padding widthof the image (default: 40)
+                    Defines the padding width of the image (default: 40)
     
     show:           bool
                     Defines whether or not the result is plotted (default: "False")
@@ -374,6 +375,87 @@ def find_diameter(image, sample="n/a", sigma=5, padding=40, show="False", index=
     
     #Return figure, tuples d_outer=[d_outer_x,d_outer_y], center=[x,y]
     return d_outer, center
+
+def find_radii(image, sample="n/a", res=1, sigma=2.6, show="False", index=0):
+    """
+    Description:    Iterates around throught the found edges and calculates the distance to the center point, i.e. radius
+    ------------    
+    
+    Inputs:
+    -------
+    image:          array
+                    The input image that need to be processed
+
+    sample:         string
+                    Defining which sample was choosen (default:"n/a")
+    
+    res:            float
+                    Inter- and inner image resolution in in SI-unit (m) (default:"n/a")
+                    
+    sigma:          float
+                    Defines the standard deviation of the edge detector (default: 2.6)
+    
+    show:           string
+                    Defines whether or not the result is plotted (default: "False")
+    
+    index:          int
+                    Index of the iteration to label the images (default:0)                   
+    
+    Outputs:
+    --------
+    radius:         list
+                    list that contains all the radii of the image
+    
+    index:          int
+                    The index of the image that was processed                             
+    """
+    # Import packages needed for the function
+    import numpy as np
+    import matplotlib.pyplot as plt
+    import os
+    from skimage import data, feature, color
+    
+    # Initialisation of the list to store the radius
+    radius=[]
+    
+    # Convert given image into array
+    image = color.rgb2gray(np.asarray(image))
+
+    # Edge detection wih canny edge detector
+    img_edges = feature.canny(image, sigma=sigma)
+
+    # Create an array with the coordinates of the edges
+    edge_indices = np.where(img_edges)
+
+    # Calculate the center position
+    center_x = (max(edge_indices[0])-min(edge_indices[0]))/2
+    center_y = (max(edge_indices[1])-min(edge_indices[1]))/2
+
+    # Compose tuple to store center point in x and y direction
+    center_coordinates = [center_x,center_y]
+
+    ## Loop to calculate the radius of the edge.
+    for w in range(len(edge_indices[0])):
+        for h in range(len(edge_indices[1])):
+            circle_coordinates = [edge_indices[0][w],edge_indices[1][h]]
+            #print(circle_coordinates)
+            r_vec = [circle_coordinates[0]-center_coordinates[0],circle_coordinates[1]-center_coordinates[1]]
+            #print(r_vec)
+            r_abs = np.sqrt(np.square(r_vec[0])+np.square(r_vec[1]))
+            radius.append(r_abs)
+            #print("Radius (absolut, length): ",r_abs)
+    
+    # Create plot to print output image if show == "True"
+    if show == "True":
+        plt.imshow(img_edges, cmap='gray', 
+                   interpolation='nearest')
+        plt.title('Edges found with Canny-Edge detector (sigma: {}, index: {})'.format(sigma,index))
+        plt.xlabel('Image width / pixel')
+        plt.ylabel('Image hight / pixel')
+        plt.show() 
+        
+    #Return the list with all the radii in the given image and the index of the given image
+    return radius, index
 
     
 def calculate_wallthickness (d_outer, center_outer, d_inner, center_inner):
@@ -772,10 +854,51 @@ def export_results(z, d_o_x, d_o_y, d_o, r_o, d_i_x, d_i_y, d_i, r_i, t_x_0, t_x
                    str(round(t_y_270,2))+ "," +
                    str(round(t_mean,2)) + "\n")
     
-        
-                  
-
+    
 def print_summary(z, d_o_x, d_o_y, d_o, r_o, d_i_x, d_i_y, d_i, r_i, t, time_c, sample="n/a", res="n/a", index=0):
+    """
+    Description:    Print summary to the console with key indicators of the calculation process
+    ------------    
+    
+    Inputs:
+    -------
+    z:              float
+                    Tube length in SI-unit (m)                
+    
+    d_o_x, d_o_y:   float
+                    Outer diameter of the tube in x and y direction in SI-unit (m)  
+    
+    d_o:            float
+                    Mean outer diameter of the tube in SI-unit (m)
+    
+    r_o:            float
+                    Mean outer radius of the tube in SI-unit (m)
+    
+    d_i_x, d_i_y:   float
+                    Inner diameter of the tube in x and y direction in SI-unit (m) 
+                    
+    d_i:            float
+                    Mean inner diameter of the tube in in SI-unit (m) 
+ 
+    r_i:            float
+                    Mean inner radius of the tube in SI-unit (m)
+                    
+    t:              float
+                    Wall thickness in SI-unit (m)
+           
+    time_c:         float
+                    Computation time in seconds
+                    
+    res:            float
+                    Inter- and inner image resolution in in SI-unit (m) (default:"n/a")
+    
+    sample:         string
+                    Index of the iteration to label the images (default:"n/a")
+    
+    Outputs:
+    --------
+    nothing is returned, but a summary is printed into console                              
+    """
     # Calculate minimum, maximum and difference values
     t_min = min(t)
     t_max = max(t)
@@ -813,15 +936,3 @@ def print_summary(z, d_o_x, d_o_y, d_o, r_o, d_i_x, d_i_y, d_i, r_i, t, time_c, 
     print("% - Maximum mean wall thickness: {} um".format(round(t_max, 2)))
     print("% - Variation (max-min): {} um".format(round(t_diff, 2)))
     print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-    
-
-def find_radii():
-    
-    # Import packages needed for the function
-    import numpy as np
-    import matplotlib.pyplot as plt
-    import os
-    from skimage import data, feature, color, filters
-    
-    
-    return
