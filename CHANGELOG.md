@@ -44,4 +44,4 @@ File(s):  IGTLab_RetoFurrer_2019.ipynd, utils.py<br/>
 * Funtion `find_radii()` commented out. 
 
 ## V8 (2019-09-06, 78d3ed7)
-* Redesigned progression section in the format [date]: x of y in z.z sec`
+* Redesigned progression section in the format `[date]: x of y in z.z sec`
