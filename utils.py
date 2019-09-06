@@ -276,7 +276,7 @@ def crop_to_roi(image, sample="n/a", sigma=1.6, padding=0, show="False", index=0
     return reduced_img
 
 
-def find_diameter(image, sample="n/a", sigma=5, padding=40, show="False", index=0, border_col="red", border_width=2):
+def find_diameter(image, sample="n/a", sigma=2.5, padding=40, show="False", index=0, border_col="red", border_width=2):
     """
     Description:    Finds diameter on the input image an plots the segmentation if needed
     ------------    
