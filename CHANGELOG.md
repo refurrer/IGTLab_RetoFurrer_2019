@@ -45,3 +45,7 @@ File(s):  IGTLab_RetoFurrer_2019.ipynd, utils.py<br/>
 
 ## V8 (2019-09-06, 78d3ed7)
 * Redesigned progression section in the format `[date]: x of y in z.z sec`
+
+## V9 (2019-09-06, 104796a)
+* Added sample images in folder `img` to run the code.
+* adapted sigma values of the `find_diameter()` function for performance optimisation
