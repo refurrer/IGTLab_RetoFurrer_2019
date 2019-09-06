@@ -42,3 +42,6 @@ File(s):  IGTLab_RetoFurrer_2019.ipynd, utils.py<br/>
 ## V7 (2019-09-06, 1a03e11)
 * Added 3D plot for wall thickness to emphazise with the idea of a topology
 * Funtion `find_radii()` commented out. 
+
+## V8 (2019-09-06, 78d3ed7)
+* Redesigned progression section in the format [date]: x of y in z.z sec`
