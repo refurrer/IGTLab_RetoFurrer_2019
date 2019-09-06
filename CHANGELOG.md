@@ -38,3 +38,7 @@ File(s):  IGTLab_RetoFurrer_2019<br/>
 ## V6 (2019-09-05, 1ece74f)
 * Completed function `find_radii()` to calculate the radii around the found edges.
 * Only `utils.py`file changed
+
+## V7 (2019-09-06, 1a03e11)
+* Added 3D plot for wall thickness to emphazise with the idea of a topology
+* Funtion `find_radii()` commented out. 
