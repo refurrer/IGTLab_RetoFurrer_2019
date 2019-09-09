@@ -49,3 +49,7 @@ File(s):  IGTLab_RetoFurrer_2019.ipynd, utils.py<br/>
 ## V9 (2019-09-06, 104796a)
 * Added sample images in folder `img` to run the code.
 * adapted sigma values of the `find_diameter()` function for performance optimisation
+
+## V10 (2019-09-09, a0ed23)
+* Bug fix of the method `mask_image()` for the elliptic mode.
+* Changed input parameter side in `mask_imag()` from float to tuple.
