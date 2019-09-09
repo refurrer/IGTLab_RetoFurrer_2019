@@ -52,4 +52,4 @@ File(s):  IGTLab_RetoFurrer_2019.ipynd, utils.py<br/>
 
 ## V10 (2019-09-09, a0ed23)
 * Bug fix of the method `mask_image()` for the elliptic mode.
-* Changed input parameter side in `mask_imag()` from float to tuple.
+* Changed input parameter side in `mask_image()` from float to tuple.
