@@ -255,7 +255,7 @@ def crop_to_roi(image, sample="n/a", sigma=1.6, padding=0, show="False", index=0
     d_outer_y = position_y_max - position_y_min
      
     # copy reduced image       
-    reduced_img = image[position_y_min-padding:position_y_min+d_outer_y+padding, position_x_min-padding:position_x_min+d_outer_y+padding]
+    reduced_img = image[position_y_min-padding:position_y_min+d_outer_y+padding, position_x_min-padding:position_x_min+d_outer_x+padding]
 
     # Create subplot to print reduced image and the marker for the outer diameter
     if show == "True":
@@ -645,7 +645,7 @@ def invert_image(image, sample="n/a", show="False", index=0):
     return inverted_image
 
 
-def mask_image(image, side, center, mode="circle", padding=40, show="False", sample="n/a", index=0):
+def mask_image(image, sides, center, mode="circle", padding=40, show="False", sample="n/a", index=0):
     """
     Description:    Masks image based on d_outer and center_outer & outputs the new image
     ------------    
@@ -655,8 +655,8 @@ def mask_image(image, side, center, mode="circle", padding=40, show="False", sam
     image:          array
                     The input imaget that need to be masked                
     
-    side:           float
-                    Contains the outer dimension for masking 
+    sides:          Tuple
+                    Contains the outer dimensions in x- and y direction for masking 
     
     center:         tuple
                     Contains the center point coordinates (x and y) of the outer dimension
@@ -688,7 +688,14 @@ def mask_image(image, side, center, mode="circle", padding=40, show="False", sam
     # Create copy of the input image and convert it to gray-scale for image manipulation
     image = image.copy()
     image = color.rgb2gray(image)
-
+    
+    # Extract the side dimensions from the tuple sides
+    side_x = sides[0]
+    side_y = sides[1]
+    
+    #Calculate the minimum diameter
+    side = np.minimum(sides[0],sides[1])
+    
     # Mode "circle"
     if mode == "circle":
         ## Nested for-loop to reduce image information to the inner tube lumen (circle)
@@ -711,13 +718,13 @@ def mask_image(image, side, center, mode="circle", padding=40, show="False", sam
         for h in range(image.shape[1]):
             for w in range(image.shape[0]):
                 ### Ellipse formula outside the side dimenstions, replace values with 1 (=white) 
-                if (np.square(w-center[0]-padding)/np.square((side-25)/2) + np.square(h-center[1]-padding)/np.square((side-25)/2) >= 1):
+                if (np.square(h-center[0]-padding)/np.square((side_x-25)/2) + np.square(w-center[1]-padding)/np.square((side_y-25)/2) >= 1):
                     image[w, h] = 1
             
                 ### Ellipse formula inside the side dimensions, keep the image values 
-                elif (np.square(w-center[0]-padding)/np.square((side-25)/2) + np.square(h-center[1]-padding)/np.square((side-25)/2) < 1):
+                elif (np.square(h-center[0]-padding)/np.square((side_x-25)/2) + np.square(w-center[1]-padding)/np.square((side_y-25)/2) < 1):
                     image[w, h] = image[w, h]
-    
+        
         ## Assign new image to a new variable
         masked_image = image
     
