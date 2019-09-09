@@ -53,3 +53,8 @@ File(s):  IGTLab_RetoFurrer_2019.ipynd, utils.py<br/>
 ## V10 (2019-09-09, a0ed23)
 * Bug fix of the method `mask_image()` for the elliptic mode.
 * Changed input parameter side in `mask_image()` from float to tuple.
+
+## V11 (2019-09-09, 4fb245a and e1f33dd)
+* Added Phantom images to the `img` folder with commit `#4fb245a`
+* Changed 3D visualisation. Added wirefrem plot and point cloud to the plot section (`#e1f33dd`)
+* Moved import of `mpl_toolkits`, `mplot3d` to Preamble.
